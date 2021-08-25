@@ -1,0 +1,19 @@
+.hero-image {
+  background-image: url("https://ibdaa.africa/wp-content/uploads/2020/12/shema-2-03-1024x723.jpg");
+  background-color: #ffff;
+  height: 750px;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  position: relative;
+}
+
+.hero-text {
+  text-align: left;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+
+  transform: translate(-50%, -50%);
+  color: rgb(7, 6, 65);
+}

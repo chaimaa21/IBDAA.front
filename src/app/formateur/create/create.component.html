@@ -1,0 +1,97 @@
+<mat-toolbar>
+  <span>{{
+    service.form.controls["$id"].value ? "Modifier" : "Nouveau formateur"
+  }}</span>
+  <span class="fill-remaining-space"></span>
+  <button
+    class="btn-dialog-close"
+    mat-stroked-button
+    (click)="onClose()"
+    tabIndex="-1"
+  >
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
+  <mat-grid-list cols="2" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <mat-form-field>
+          <input formControlName="$id" matInput placeholder="ID*" />
+          <mat-error>Champ obligatoire</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="nom" matInput placeholder="Nom*" />
+          <mat-error>Champ obligatoire</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="prenom" matInput placeholder="Prénom*" />
+          <mat-error>Champ obligatoire</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="email" matInput placeholder="E-mail*" />
+          <mat-error *ngIf="service.form.controls['email'].errors?.email"
+            >Adresse e-mail invalide</mat-error
+          >
+          <mat-error *ngIf="service.form.controls['email'].errors?.required"
+            >Champ obligatoire</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="cin" matInput placeholder="CIN*" />
+          <mat-error>Champ obligatoire</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="controles-container">
+        <mat-form-field>
+          <input
+            formControlName="telephone"
+            matInput
+            placeholder="Numéro de téléphone*"
+          /><mat-error
+            *ngIf="service.form.controls['telephone'].errors?.required"
+            >Champ obligatoire</mat-error
+          >
+          <mat-error
+            *ngIf="service.form.controls['telephone'].errors?.minlength"
+            >Nombre minimum de chiffres : 10</mat-error
+          ><mat-error
+            *ngIf="service.form.controls['telephone'].errors?.maxlength"
+            >Nombre maximum de chiffres : 10</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="adresse"
+            matInput
+            placeholder="Aresse*"
+          /><mat-error>Champ obligatoire</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            formControlName="profil"
+            matInput
+            placeholder="Profil*"
+          /><mat-error>Champ obligatoire</mat-error>
+        </mat-form-field>
+        <div class="button-row">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="service.form.invalid"
+          >
+            Enregistrer
+          </button>
+          <button mat-raised-button color="warn" (click)="onClear()">
+            Effacer
+          </button>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
