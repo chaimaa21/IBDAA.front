@@ -30,26 +30,30 @@ formateurs:Formateur[];
 formateur:Formateur;
   listData: MatTableDataSource<Formateur>;
 
-  displayedColumns: string[] = ['$id', 'nom', 'prenom','profil','email','cin','telephone','adresse','actions'];
+  displayedColumns: string[] = ['id', 'nom', 'prenom','profil','email','cin','telephone','adresse','actions'];
   
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
   
   ngOnInit() {
-    this.service.getFormateursList().subscribe(
-      list => {
-        let formateur = list.map(item => {
-        this.listData = new MatTableDataSource(list);
-        this.listData.sort = this.sort;
-        this.listData.paginator = this.paginator;
-        this.listData.filterPredicate = (data, filter) => {
-          return this.displayedColumns.some(ele => {
-            return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
-        });
-        };
-       }) });
+    this.reloadData();
   }
+
+reloadData(){
+  this.service.getFormateursList().subscribe(
+    list => {
+      let formateur = list.map(item => {
+      this.listData = new MatTableDataSource(list);
+      this.listData.sort = this.sort;
+      this.listData.paginator = this.paginator;
+      this.listData.filterPredicate = (data, filter) => {
+        return this.displayedColumns.some(ele => {
+          return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
+      });
+      };
+     }) });
+}
 
   onSearchClear() {
     this.searchKey = "";
@@ -87,17 +91,21 @@ formateur:Formateur;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    this.dialog.open(CreateComponent,dialogConfig);
+    dialogConfig.data=formateur;
+    this.dialog.open(UpdateComponent,dialogConfig);
   }
 
-  onDelete($id:number){
+  onDelete(id){
     this.dialogService.openConfirmDialog('Voulez-vous vraiment supprimer cet enregistrement?')
-    .afterClosed().subscribe(res =>{
-      if(res){
-    this.service.removeFormateur($id);
-    this.notificationService.warn('! Deleted successfully');
-    }
-  }
-    )
-  }
+    .afterClosed().subscribe(data =>{
+      this.service.removeFormateur(id).subscribe((res)=>{console.log(res)})
+      if(data){
+      /*  console.log(data[''])*/
+        console.log('deleted')
+    this.listData.data.splice(data.id, 1)
+    this.listData._updateChangeSubscription()
+    this.notificationService.warn('! Deleted successfully')
+      }
+  })
+}
 }

@@ -1,7 +1,5 @@
 <mat-toolbar>
-  <span>{{
-    service.form.controls["$id"].value ? "Modifier" : "Nouveau formateur"
-  }}</span>
+  <span>Nouveau formateur</span>
   <span class="fill-remaining-space"></span>
   <button
     class="btn-dialog-close"
@@ -17,10 +15,10 @@
   <mat-grid-list cols="2" rowHeight="300px">
     <mat-grid-tile>
       <div class="controles-container">
-        <mat-form-field>
-          <input formControlName="$id" matInput placeholder="ID*" />
+        <!--<mat-form-field>
+          <input formControlName="id" matInput placeholder="ID*" />
           <mat-error>Champ obligatoire</mat-error>
-        </mat-form-field>
+        </mat-form-field>-->
         <mat-form-field>
           <input formControlName="nom" matInput placeholder="Nom*" />
           <mat-error>Champ obligatoire</mat-error>

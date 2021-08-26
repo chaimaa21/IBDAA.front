@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { DemoMaterialModule } from 'src/app/material-module';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Route } from '@angular/router';
 import { FormateurService } from '../formateur.service';
 import { Formateur } from '../formateur';
@@ -21,8 +21,8 @@ export class CreateComponent implements OnInit {
   listData: MatTableDataSource<Formateur>;
   formateurs:Formateur[];
 
-  constructor(public service:FormateurService,  
-    public dialogRef: MatDialogRef<CreateComponent>, private notificationService: NotificationService) { }
+  constructor(public service:FormateurService,
+    public dialogRef: MatDialogRef<CreateComponent>, private notificationService: NotificationService,@Inject(MAT_DIALOG_DATA) public data: Formateur) { }
 
   ngOnInit(){this.service.getFormateursList();
   }
@@ -36,8 +36,8 @@ export class CreateComponent implements OnInit {
     if (this.service.form.valid) {
       this.service.addFormateur(this.service.form.value).subscribe(data => {
         console.log(data)
-        this.formateurs.push({
-          $id:this.formateur.$id,
+        /*this.formateurs.push({
+          id:this.formateur.id,
           nom:this.formateur.nom,
          prenom:this.formateur.prenom,
           email:this.formateur.email,
@@ -45,11 +45,12 @@ export class CreateComponent implements OnInit {
           telephone:this.formateur.telephone,
           profil:this.formateur.profil,
           adresse:this.formateur.adresse
-        })
-        
+        })*/
+        window.location.reload();
         });
       this.notificationService.success(':: Submitted successfully');
       this.onClose();
+
     }
   }
 
@@ -58,10 +59,3 @@ export class CreateComponent implements OnInit {
     this.dialogRef.close();
   }
   }
-/* this.employeeService
-    .createEmployee(this.employee).subscribe(data => {
-      console.log(data)
-      this.employee = new Employee();
-      this.gotoList();
-    }, 
-    error => console.log(error));*/

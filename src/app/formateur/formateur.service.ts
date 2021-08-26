@@ -8,12 +8,12 @@ import { Formateur } from "./formateur";
 
 @Injectable({providedIn: 'root'})
 export class FormateurService{
-    private formateurApi=environment.formateurApi;
+    public formateurApi=environment.formateurApi;
     formateurs:Formateur[];
     constructor(public http:HttpClient){}
 
     form:FormGroup=new FormGroup({
-        $id:new FormControl('',Validators.required),
+        id:new FormControl(''),
         nom:new FormControl('',Validators.required),
         prenom:new FormControl('',Validators.required),
         email:new FormControl('',[Validators.email,Validators.required]),
@@ -26,7 +26,7 @@ export class FormateurService{
 
     initializeFormGroup(){
         this.form.setValue({
-            $id:null,
+            id:null,
             nom:'',
             prenom:'',
             email:'',
@@ -46,12 +46,12 @@ export class FormateurService{
       }
     
       public updateFormateur(formateur: Formateur): Observable<Formateur> {
-        return this.http.put<Formateur>(`${this.formateurApi}/update/{id}`,formateur);
+        return this.http.put<Formateur>(`${this.formateurApi}/update`,formateur);
       }
     
-      public removeFormateur($id: number): Observable<void> {
-        return this.http.delete<void>(`${this.formateurApi}/delete/{id}`);
-    
+      public removeFormateur(id: number):Observable<Formateur> {
+        console.log(id); 
+        return this.http.delete<Formateur>(`${this.formateurApi}/delete/${id}`);
       }
     
     }
