@@ -1,38 +1,38 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
-import { FormateurService } from '../formateur.service';
+import { FormationService } from '../formation.service';
 import {MatTableDataSource} from '@angular/material/table';
 import { DemoMaterialModule } from 'src/app/material-module';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DataSource } from '@angular/cdk/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { CreateComponent } from '../create/create.component';
+import { CreateFormationComponent } from '../create-formation/create-formation.component';
 import { NotificationService } from '../../shared/notification.service';
-import { Formateur } from '../formateur';
+import { Formation } from '../formation';
 import * as _ from 'lodash';
 import { remove } from 'lodash';
 import { DialogService } from 'src/app/shared/dialog.service';
-import { UpdateComponent } from '../update/update.component';
+import { UpdateFormationComponent } from '../update-formation/update-formation.component';
 
 @Component({
-  selector: 'formateur-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  selector: 'list-formation',
+  templateUrl: './list-formation.component.html',
+  styleUrls: ['./list-formation.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListFormationComponent implements OnInit {
+
 
   constructor(private notificationService: NotificationService,
     private dialog: MatDialog,
     private dialogService: DialogService,
-    private service: FormateurService) { } 
+    private service: FormationService) { } 
 
-formateurs:Formateur[];
-formateur:Formateur;
-  listData: MatTableDataSource<Formateur>;
-  dataSource = new MatTableDataSource;
+formations:Formation[];
+formateur:Formation;
+  listData: MatTableDataSource<Formation>;
   searchKey: string;
 
-  displayedColumns: string[] = ['id', 'nom', 'prenom','profil','email','cin','telephone','adresse','actions'];
+  displayedColumns: string[] = ['id', 'nom', 'formateur','prerequis','objectifs','phase','duree','date_debut','date_fin','actions'];
   
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -42,7 +42,7 @@ formateur:Formateur;
   }
 
 reloadData(){
-  this.service.getFormateursList().subscribe(
+  this.service.getFormationsList().subscribe(
     list => {
       let formateur = list.map(item => {
       this.listData = new MatTableDataSource(list);
@@ -63,7 +63,7 @@ reloadData(){
 
   applyFilter(event:Event) {
     const filterValue=(event.target as HTMLInputElement).value;
-    this.dataSource.filter= filterValue.trim().toLowerCase();
+    this.listData.filter= filterValue.trim().toLowerCase();
   }
 
   onCreate() {
@@ -72,23 +72,23 @@ reloadData(){
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    this.dialog.open(CreateComponent,dialogConfig);
-    this.service.getFormateursList();
+    this.dialog.open(CreateFormationComponent,dialogConfig);
+    this.service.getFormationsList();
   }
 
-  onEdit(formateur:Formateur){
+  onEdit(formation:Formation){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    dialogConfig.data=formateur;
-    this.dialog.open(UpdateComponent,dialogConfig);
+    dialogConfig.data=formation;
+    this.dialog.open(UpdateFormationComponent,dialogConfig);
   }
 
   onDelete(id){
     this.dialogService.openConfirmDialog('Voulez-vous vraiment supprimer cet enregistrement?')
     .afterClosed().subscribe(data =>{
-      this.service.removeFormateur(id).subscribe((res)=>{console.log(res)})
+      this.service.removeFormation(id).subscribe((res)=>{console.log(res)})
       if(data){
         console.log('deleted')
     this.listData.data.splice(data.id, 1)

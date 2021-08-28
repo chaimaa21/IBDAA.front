@@ -36,7 +36,7 @@ export class CreateComponent implements OnInit {
     if (this.service.form.valid) {
       this.service.addFormateur(this.service.form.value).subscribe(data => {
         console.log(data)
-        /*this.formateurs.push({
+       /* this.formateurs.push({
           id:this.formateur.id,
           nom:this.formateur.nom,
          prenom:this.formateur.prenom,

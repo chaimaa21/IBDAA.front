@@ -28,6 +28,9 @@ import { CreateComponent } from './formateur/create/create.component';
 import { UpdateComponent } from './formateur/update/update.component';
 import { FormateurService } from './formateur/formateur.service';
 import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
+import { ListFormationComponent } from './formation/list-formation/list-formation.component';
+import { CreateFormationComponent } from './formation/create-formation/create-formation.component';
+import { UpdateFormationComponent } from './formation/update-formation/update-formation.component';
 
 
 
@@ -40,7 +43,10 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     ListComponent,
     CreateComponent,
     UpdateComponent,
-    MatConfirmDialogComponent],
+    MatConfirmDialogComponent,
+    ListFormationComponent,
+    CreateFormationComponent,
+    UpdateFormationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,26 +1,16 @@
 <div class="search-div">
   <button mat-raised-button (click)="onCreate()">
-    <mat-icon>add</mat-icon>Ajouter un Formateur
+    <mat-icon>add</mat-icon>
   </button>
-  <mat-form-field class="search-form-field" floatLabel="never">
+  <!-- <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
     <input
       matInput
-      [(ngModel)]="searchKey"
-      placeholder="Search"
-      autocomplete="on"
-      (keyup)="applyFilter()"
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. ium"
+      #input
     />
-    <button
-      mat-button
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      *ngIf="searchKey"
-      (click)="onSearchClear()"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
+  </mat-form-field>-->
 </div>
 
 <div class="mat-elevation-z8">
@@ -102,18 +92,20 @@
         </div>
       </td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let formateur; columns: displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
+    <!--Row shown when there is no matching data.
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data</td>
-    </tr>
+      <td class="mat-cell" colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>-->
   </table>
-
   <mat-paginator
     [pageSizeOptions]="[5, 10, 25, 100]"
-    aria-label="Select page of users"
+    [pageSize]="5"
+    showFirstLastButtons
   ></mat-paginator>
 </div>
 <router-outlet></router-outlet>
