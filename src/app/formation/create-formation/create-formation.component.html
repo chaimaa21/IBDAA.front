@@ -36,27 +36,7 @@
           />
           <mat-error>Champ obligatoire</mat-error>
         </mat-form-field>
-        <mat-form-field>
-          <mat-label>First campaign</mat-label>
-          <mat-date-range-input
-            [formGroup]="campaignOne"
-            [rangePicker]="campaignOnePicker"
-            [comparisonStart]="campaignTwo.value.start"
-            [comparisonEnd]="campaignTwo.value.end"
-          >
-            <input
-              matStartDate
-              placeholder="Start date"
-              formControlName="start"
-            />
-            <input matEndDate placeholder="End date" formControlName="end" />
-          </mat-date-range-input>
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="campaignOnePicker"
-          ></mat-datepicker-toggle>
-          <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
-        </mat-form-field>
+
         <mat-form-field>
           <input
             formControlName="formateur"
@@ -70,9 +50,9 @@
     <mat-grid-tile>
       <div class="controles-container">
         <div class="add-bottom-padding">
-          <mat-radio-group formControlName="phase">
-            <mat-radio-button value="1">Pré-création</mat-radio-button>
-            <mat-radio-button value="2">Post-création</mat-radio-button>
+          <mat-radio-group formControlName="phase" placeholder="Phase">
+            <mat-radio-button value="1">Pré-création</mat-radio-button
+            ><mat-radio-button value="2">Post-création</mat-radio-button>
           </mat-radio-group>
         </div>
         <mat-form-field>
@@ -83,35 +63,32 @@
           /><mat-error>Champ obligatoire</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Second campaign</mat-label>
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>Période</mat-label>
           <mat-date-range-input
-            [formGroup]="campaignTwo"
-            [rangePicker]="campaignTwoPicker"
-            [comparisonStart]="campaignOne.value.start"
-            [comparisonEnd]="campaignOne.value.end"
+            [formGroup]="campaignOne"
+            [rangePicker]="campaignOnePicker"
           >
             <input
               matStartDate
-              placeholder="Start date"
-              formControlName="start"
+              placeholder="Début de formation"
+              formControlName="date_debut"
             />
-            <input matEndDate placeholder="End date" formControlName="end" />
+            <input
+              matEndDate
+              placeholder="Fin de formation"
+              formControlName="date_fin"
+            />
           </mat-date-range-input>
           <mat-datepicker-toggle
             matSuffix
-            [for]="campaignTwoPicker"
+            [for]="campaignOnePicker"
           ></mat-datepicker-toggle>
-          <mat-date-range-picker #campaignTwoPicker></mat-date-range-picker>
+          <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
         </mat-form-field>
 
         <div class="button-row">
-          <button
-            mat-raised-button
-            color="primary"
-            type="submit"
-            [disabled]="service.form.invalid"
-          >
+          <button mat-raised-button color="primary" type="submit">
             Enregistrer
           </button>
           <button mat-raised-button color="warn" (click)="onClear()">

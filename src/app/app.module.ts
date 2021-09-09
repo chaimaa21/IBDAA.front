@@ -11,14 +11,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AcceuilComponent } from './acceuil/acceuil.component';
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatNativeDateModule} from '@angular/material/core';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AdminComponent } from './admin/admin.component';
 import { DemoMaterialModule } from './material-module';
 import { environment } from 'src/environments/environment';
@@ -31,8 +31,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
 import { ListFormationComponent } from './formation/list-formation/list-formation.component';
 import { CreateFormationComponent } from './formation/create-formation/create-formation.component';
 import { UpdateFormationComponent } from './formation/update-formation/update-formation.component';
-
-
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +45,9 @@ import { UpdateFormationComponent } from './formation/update-formation/update-fo
     MatConfirmDialogComponent,
     ListFormationComponent,
     CreateFormationComponent,
-    UpdateFormationComponent],
+    UpdateFormationComponent,
+    LoginComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -65,13 +66,13 @@ import { UpdateFormationComponent } from './formation/update-formation/update-fo
     HttpClientModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    DemoMaterialModule
+    DemoMaterialModule,
   ],
-  exports:[RouterModule],
+  exports: [RouterModule],
   providers: [FormateurService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
-
+export class AppModule {}
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch((err) => console.error(err));

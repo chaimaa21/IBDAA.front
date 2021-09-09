@@ -28,8 +28,19 @@
       </button>
       <span>IBDAA</span>
       <span class="spacer"></span>
-      <a href="">Acceuil</a>
-      <a href="">Contact</a>
+
+      <a routerLink="acceuil">Acceuil</a>
+
+      <a class="nav-link">{{ authService.loggedUser }}</a>
+      <button mat-button [matMenuTriggerFor]="menu">Connexion</button>
+      <mat-menu #menu="matMenu">
+        <a *ngIf="!authService.isloggedIn" mat-menu-item routerLink="login"
+          >Login</a
+        >
+        <a *ngIf="authService.isloggedIn" mat-menu-item (click)="onLogout()"
+          >Logout</a
+        >
+      </mat-menu>
     </mat-toolbar>
     <div><router-outlet></router-outlet></div>
   </mat-sidenav-content>

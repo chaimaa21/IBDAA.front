@@ -1,5 +1,5 @@
 <div class="search-div">
-  <button mat-raised-button (click)="onCreate()">
+  <button mat-raised-button (click)="onCreate()" *ngIf="authService.isAdmin()">
     <mat-icon>add</mat-icon>
   </button>
   <!-- <mat-form-field appearance="standard">
@@ -87,13 +87,19 @@
       <td mat-cell *matCellDef="let formateur">
         <div class="example-button-row">
           <div class="example-flex-container">
-            <button mat-icon-button color="primary" (click)="onEdit(formateur)">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="onEdit(formateur)"
+              *ngIf="authService.isAdmin()"
+            >
               <mat-icon>edit</mat-icon>
             </button>
             <button
               mat-icon-button
               color="accent"
               (click)="onDelete(formateur.id)"
+              *ngIf="authService.isAdmin()"
             >
               <mat-icon>delete</mat-icon>
             </button>
