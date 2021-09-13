@@ -4,9 +4,11 @@
       <div class="alert alert-danger" *ngIf="erreur == 1">
         <strong>login ou mot de passe erronés..</strong>
       </div>
+
       <form>
+        <h2>Login</h2>
         <div class="form-group">
-          <label>Nom Utilisateur :</label>
+          <label>Nom Utilisateur </label>
           <input
             type="text"
             name="username"
@@ -14,8 +16,10 @@
             [(ngModel)]="user.username"
           />
         </div>
+        <br />
+
         <div class="form-group">
-          <label>Mot de passe :</label>
+          <label>Mot de passe </label>
           <input
             type="password"
             name="password"
@@ -23,6 +27,7 @@
             class="form-control"
           />
         </div>
+        <br />
         <div class="row justify-content-md-center">
           <button type="button" (click)="onLoggedin()" class="btn btn-success">
             Connexion
